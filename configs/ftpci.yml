@@ -1,0 +1,9 @@
+ftp:
+  host: localhost
+  port: 2121
+  username: test
+  password: test
+tasks:
+  /test1:
+    - echo "hello world"
+    - echo "found"

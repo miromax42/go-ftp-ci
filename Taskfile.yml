@@ -1,0 +1,5 @@
+version: "3"
+tasks:
+  runw:
+    cmds:
+      - go run ./cmd/watcher/main.go
