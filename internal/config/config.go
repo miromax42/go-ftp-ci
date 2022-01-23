@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
+	"io/ioutil"
+
 	"github.com/miromax42/go-ftp-ci/internal/watcher"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
 )
 
 type Config struct {

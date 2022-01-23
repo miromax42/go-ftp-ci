@@ -3,7 +3,7 @@ package watcher
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
@@ -19,7 +19,7 @@ func (w *Watcher) loadDirs() {
 		fmt.Println(err)
 	}
 
-	byteValue, err := ioutil.ReadAll(jsonFile)
+	byteValue, err := io.ReadAll(jsonFile)
 	if err != nil {
 		fmt.Println(err)
 	}

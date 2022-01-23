@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/miromax42/go-ftp-ci/internal/config"
-	"github.com/miromax42/go-ftp-ci/internal/watcher"
 	"log"
 	"os"
 	"os/exec"
@@ -12,6 +10,9 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/miromax42/go-ftp-ci/internal/config"
+	"github.com/miromax42/go-ftp-ci/internal/watcher"
 )
 
 const (
@@ -45,22 +46,25 @@ func main() {
 	var wg sync.WaitGroup
 
 	wg.Add(1)
+
 	go func() {
 		defer wg.Done()
+
 		go w.Watch(ctx, dirs, 5*time.Second, notify)
+
 		<-ctx.Done()
 		w.Stop()
 	}()
 
 	wg.Add(1)
+
 	go func() {
 		defer wg.Done()
-	loop:
 		for {
 			select {
 			case <-ctx.Done():
 				fmt.Println("Executing stop")
-				break loop
+				return
 			case dir := <-notify:
 				fmt.Printf("dir: %v, tasks: %v\n", dir, cfg.Tasks[dir])
 				for _, c := range cfg.Tasks[dir] {
